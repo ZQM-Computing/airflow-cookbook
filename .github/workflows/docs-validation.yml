@@ -45,7 +45,7 @@ jobs:
                   if not raw:
                       errors.append(f"{filename}: empty Markdown link target")
                       continue
-                  parsed = urlsplit(raw)
+                  parsed = urlsplit(raw.replace(" ", "%20"))
                   if parsed.scheme or parsed.netloc or not parsed.path:
                       continue
                   path = (doc.parent / unquote(parsed.path)).resolve()
