@@ -38,7 +38,10 @@ jobs:
                   if not target:
                       errors.append(f"{filename}: empty Markdown link target")
                       continue
-                  raw = target.split()[0].strip("<>")
+                  if target.startswith("<") and ">" in target:
+                      raw = target[1:target.index(">")]
+                  else:
+                      raw = target.split()[0].strip("<>")
                   if not raw:
                       errors.append(f"{filename}: empty Markdown link target")
                       continue

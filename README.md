@@ -60,7 +60,7 @@ airflow-cookbook/
 The documented fleet reference is Airflow 2.10.5 via Docker Compose; the repository does not currently claim that these commands have been run successfully against that fleet.
 
 1. Review the example README for its assumptions and expected behavior.
-2. In a disposable environment using your target Airflow version, place the DAG in the configured DAGs folder.
+2. In a disposable environment using your target Airflow version, place the DAG in the configured DAGs folder. For the geospatial pipeline, copy `points.geojson` alongside `geo_pipeline.py` and ensure both files are available to task workers.
 3. Check DAG discovery and import errors:
 
    ```bash
