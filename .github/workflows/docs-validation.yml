@@ -2,16 +2,8 @@ name: Documentation validation
 
 on:
   pull_request:
-    paths:
-      - 'README.md'
-      - 'CONTRIBUTING.md'
-      - '.github/workflows/docs-validation.yml'
   push:
     branches: [main]
-    paths:
-      - 'README.md'
-      - 'CONTRIBUTING.md'
-      - '.github/workflows/docs-validation.yml'
 
 permissions:
   contents: read
@@ -41,8 +33,15 @@ jobs:
               if not doc.is_file():
                   errors.append(f"{filename}: required file missing")
                   continue
-              for match in re.finditer(r'\[[^\]]+\]\(([^)]+)\)', doc.read_text(encoding="utf-8")):
-                  raw = match.group(1).strip().split()[0].strip("<>")
+              for match in re.finditer(r'\[[^\]]+\]\(((?:[^()]|\([^()]*\))*)\)', doc.read_text(encoding="utf-8")):
+                  target = match.group(1).strip()
+                  if not target:
+                      errors.append(f"{filename}: empty Markdown link target")
+                      continue
+                  raw = target.split()[0].strip("<>")
+                  if not raw:
+                      errors.append(f"{filename}: empty Markdown link target")
+                      continue
                   parsed = urlsplit(raw)
                   if parsed.scheme or parsed.netloc or not parsed.path:
                       continue
