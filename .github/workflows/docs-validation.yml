@@ -1,0 +1,56 @@
+name: Documentation validation
+
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - '.github/workflows/docs-validation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - '.github/workflows/docs-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  docs-local-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout reviewed commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Validate local links and required documentation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import re
+          import sys
+          from urllib.parse import unquote, urlsplit
+
+          root = pathlib.Path.cwd().resolve()
+          errors = []
+          for filename in ("README.md", "CONTRIBUTING.md"):
+              doc = root / filename
+              if not doc.is_file():
+                  errors.append(f"{filename}: required file missing")
+                  continue
+              for match in re.finditer(r'\[[^\]]+\]\(([^)]+)\)', doc.read_text(encoding="utf-8")):
+                  raw = match.group(1).strip().split()[0].strip("<>")
+                  parsed = urlsplit(raw)
+                  if parsed.scheme or parsed.netloc or not parsed.path:
+                      continue
+                  path = (doc.parent / unquote(parsed.path)).resolve()
+                  if not path.is_relative_to(root) or not path.exists():
+                      errors.append(f"{filename}: broken local reference {raw}")
+          if errors:
+              print("\n".join(errors), file=sys.stderr)
+              raise SystemExit(1)
+          print("Required docs and local Markdown link targets verified.")
+          PY
