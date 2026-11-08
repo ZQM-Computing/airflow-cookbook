@@ -72,12 +72,27 @@ The documented fleet reference is Airflow 2.10.5 via Docker Compose; the reposit
 
 <!-- coderabbit-ai-generated-section:v1:caf2a44850a252e59eccd20c3bbba3029a0bcbc593254cad52dd629fb1dabd2c -->
 
-4. Unpause the selected example DAG in this disposable environment before triggering it. Airflow 2.10.5 creates new DAGs paused by default; a triggered run can remain queued while its DAG is paused. Replace `<dag_id>` with the selected example's DAG ID:
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:c7bb7d5d04dc80e64695e0ef7fdae13e9fa67471f8cc7eb2417d167b95999c74 -->
+
+4. Wait for the scheduler to register the selected example DAG in this disposable environment. `airflow dags list` can discover a file before registration. Replace `<dag_id>` with the selected example's DAG ID and repeat this command until it succeeds. If it keeps failing, check that the scheduler is running and inspect `airflow dags list-import-errors`:
+
+   ```bash
+   airflow dags details <dag_id>
+   ```
+
+   Then unpause the DAG and check its state. Airflow 2.10.5 creates new DAGs paused by default; a triggered run can remain queued while its DAG is paused.
 
    ```bash
    airflow dags unpause <dag_id>
+   airflow dags details <dag_id>
    ```
 
+   Confirm that `is_paused` is `False` before continuing. If it is still paused, investigate the scheduler logs and repeat the unpause and state check.
+
+
+<!-- /coderabbit-ai-generated:v1 -->
 5. Run the individual example's documented trigger/task commands and inspect task logs.
 6. Confirm that output paths are writable and that no placeholder destination is mistaken for a real integration.
 
