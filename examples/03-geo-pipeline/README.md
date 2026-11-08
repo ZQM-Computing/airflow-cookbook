@@ -11,14 +11,6 @@ A three-stage geospatial pipeline DAG: ingest a synthetic GeoJSON file, transfor
 
 ## Run
 
-<!-- coderabbit-ai-generated:v1 -->
-
-<!-- coderabbit-ai-generated-section:v1:9f2955ad8e2fbfbe67582c180fba41e8168b96150e74dba5b78cfcb9658a5f5d -->
-
-<!-- coderabbit-ai-generated:v1 -->
-
-<!-- coderabbit-ai-generated-section:v1:40839490b219cd6fc504b811dbe905f41d158f9bcd50a775f18f8dce1d1020a7 -->
-
 In a disposable Airflow environment, wait for the scheduler to register the DAG after copying it into the DAGs folder. `airflow dags list` can discover the file before registration. Repeat the following command until it succeeds; if it keeps failing, check that the scheduler is running and inspect `airflow dags list-import-errors`:
 
 ```bash
@@ -38,9 +30,6 @@ Confirm that `is_paused` is `False` before continuing. If it is still paused, in
 airflow dags trigger geo_ingest_publish
 ```
 
-<!-- /coderabbit-ai-generated:v1 -->
-
-<!-- /coderabbit-ai-generated:v1 -->
 ## Expected output (stated, not yet run against the fleet)
 
 - Ingest reads 5 features from `points.geojson`.
