@@ -10,14 +10,6 @@ A minimal DAG with three tasks in a chain: extract synthetic points → transfor
 
 ## Run
 
-<!-- coderabbit-ai-generated:v1 -->
-
-<!-- coderabbit-ai-generated-section:v1:7fc0775fa00c540450c25ca7df25f35b0be46d4ffc447f4f1eed90ff0214eae7 -->
-
-<!-- coderabbit-ai-generated:v1 -->
-
-<!-- coderabbit-ai-generated-section:v1:799d48c88452850f59096d4fe0c92d1acbccd97daeef39a450f2116d454e3148 -->
-
 In a disposable Airflow environment, wait for the scheduler to register the DAG after copying it into the DAGs folder. `airflow dags list` can discover the file before registration. Repeat the following command until it succeeds; if it keeps failing, check that the scheduler is running and inspect `airflow dags list-import-errors`:
 
 ```bash
@@ -38,9 +30,6 @@ airflow dags trigger hello_geo
 airflow tasks list hello_geo
 ```
 
-<!-- /coderabbit-ai-generated:v1 -->
-
-<!-- /coderabbit-ai-generated:v1 -->
 ## Expected output (stated, not yet run against the fleet)
 
 - All three tasks end `success`; the transform task logs a bbox and a count of 5 points.
