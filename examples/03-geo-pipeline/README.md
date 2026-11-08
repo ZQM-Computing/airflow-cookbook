@@ -11,10 +11,18 @@ A three-stage geospatial pipeline DAG: ingest a synthetic GeoJSON file, transfor
 
 ## Run
 
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:9f2955ad8e2fbfbe67582c180fba41e8168b96150e74dba5b78cfcb9658a5f5d -->
+
+In a disposable Airflow environment, unpause the DAG before triggering it; newly created DAGs are paused by default.
+
 ```bash
+airflow dags unpause geo_ingest_publish
 airflow dags trigger geo_ingest_publish
 ```
 
+<!-- /coderabbit-ai-generated:v1 -->
 ## Expected output (stated, not yet run against the fleet)
 
 - Ingest reads 5 features from `points.geojson`.

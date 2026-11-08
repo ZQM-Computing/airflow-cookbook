@@ -10,12 +10,20 @@ A minimal DAG with three tasks in a chain: extract synthetic points → transfor
 
 ## Run
 
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:7fc0775fa00c540450c25ca7df25f35b0be46d4ffc447f4f1eed90ff0214eae7 -->
+
+In a disposable Airflow environment, unpause the DAG before triggering it; newly created DAGs are paused by default.
+
 ```bash
 airflow dags list | grep hello_geo
+airflow dags unpause hello_geo
 airflow dags trigger hello_geo
 airflow tasks list hello_geo
 ```
 
+<!-- /coderabbit-ai-generated:v1 -->
 ## Expected output (stated, not yet run against the fleet)
 
 - All three tasks end `success`; the transform task logs a bbox and a count of 5 points.

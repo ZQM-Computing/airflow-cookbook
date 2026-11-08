@@ -68,8 +68,20 @@ The documented fleet reference is Airflow 2.10.5 via Docker Compose; the reposit
    airflow dags list-import-errors
    ```
 
-4. Run the individual example's documented trigger/task commands and inspect task logs.
-5. Confirm that output paths are writable and that no placeholder destination is mistaken for a real integration.
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:caf2a44850a252e59eccd20c3bbba3029a0bcbc593254cad52dd629fb1dabd2c -->
+
+4. Unpause the selected example DAG in this disposable environment before triggering it. Airflow 2.10.5 creates new DAGs paused by default; a triggered run can remain queued while its DAG is paused. Replace `<dag_id>` with the selected example's DAG ID:
+
+   ```bash
+   airflow dags unpause <dag_id>
+   ```
+
+5. Run the individual example's documented trigger/task commands and inspect task logs.
+6. Confirm that output paths are writable and that no placeholder destination is mistaken for a real integration.
+
+<!-- /coderabbit-ai-generated:v1 -->
 
 For a local syntax-only check, compile the DAG Python files with the Python interpreter used by your target Airflow environment. Syntax checks do not prove that Airflow can import or execute the DAG.
 
