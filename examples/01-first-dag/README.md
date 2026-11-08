@@ -10,8 +10,22 @@ A minimal DAG with three tasks in a chain: extract synthetic points → transfor
 
 ## Run
 
+In a disposable Airflow environment, wait for the scheduler to register the DAG after copying it into the DAGs folder. `airflow dags list` can discover the file before registration. Repeat the following command until it succeeds; if it keeps failing, check that the scheduler is running and inspect `airflow dags list-import-errors`:
+
 ```bash
-airflow dags list | grep hello_geo
+airflow dags details hello_geo
+```
+
+Then unpause the DAG (new DAGs are paused by default) and check its state:
+
+```bash
+airflow dags unpause hello_geo
+airflow dags details hello_geo
+```
+
+Confirm that `is_paused` is `False` before continuing. If it is still paused, investigate the scheduler logs and repeat the unpause and state check.
+
+```bash
 airflow dags trigger hello_geo
 airflow tasks list hello_geo
 ```
