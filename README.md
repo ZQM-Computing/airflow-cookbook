@@ -27,7 +27,7 @@ Data engineers who schedule geospatial pipelines as Airflow DAGs, especially rea
 
 ## Prerequisites
 
-- Apache Airflow **2.10.5** is the documented reference version for the fleet examples; validate compatibility before using a different version.
+- Apache Airflow **2.10.5** is the documented reference version for the fleet examples (as of Oct 2026; verify the current version before use); validate compatibility before using a different version.
 - Python **3.11+** for local tooling. The Python version inside the referenced Airflow container has not yet been independently confirmed.
 - Docker Compose if running Airflow in containers.
 - Postgres or DuckDB only if adapting a pattern to a real destination; the examples do not require either service to demonstrate their core logic.
@@ -57,7 +57,7 @@ airflow-cookbook/
 
 ## Validate locally
 
-The documented fleet reference is Airflow 2.10.5 via Docker Compose; the repository does not currently claim that these commands have been run successfully against that fleet.
+The documented fleet reference is Airflow 2.10.5 via Docker Compose (as of Oct 2026; verify the current version before use); the repository does not currently claim that these commands have been run successfully against that fleet.
 
 1. Review the example README for its assumptions and expected behavior.
 2. In a disposable environment using your target Airflow version, place the DAG in the configured DAGs folder. For the geospatial pipeline, copy `points.geojson` alongside `geo_pipeline.py` and ensure both files are available to task workers.
